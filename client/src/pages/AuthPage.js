@@ -1,15 +1,21 @@
 import React, { useState }  from "react";
+import { useHttp } from "../hooks/http.hook";
 
 export const AuthPage = () => {
+  const {loading, request} = useHttp()
   const [form, setForm] = useState({
     email: '', password: ''
   })
 
   const changeHandler = (event) => {
-    setForm({...form, [event.target.name]: event.target.name})
+    setForm({...form, [event.target.name]: event.target.value })
   }
 
-  
+  const registerHandler = async () => {
+    try {
+      const data = await request('/api/auth/register', 'POST', {...form})
+    } catch (error) {}
+  }
 
   return (
     <div className="row">
@@ -20,7 +26,7 @@ export const AuthPage = () => {
           <span className="card-title">Authenticate</span>
           <div>
 
-          <div class="input-field">
+          <div className="input-field">
             <input 
               placeholder="Type email" 
               id="email" 
@@ -29,10 +35,10 @@ export const AuthPage = () => {
               className="yellow-input"
               onChange={changeHandler}
               />
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
           </div>
 
-          <div class="input-field">
+          <div className="input-field">
             <input 
               placeholder="Type password" 
               id="password" 
@@ -41,15 +47,27 @@ export const AuthPage = () => {
               className="yellow-input"
               onChange={changeHandler}
               />
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
           </div>
 
 
           </div>
         </div>
         <div className="card-action">
-          <button className="btn yellow darken-4" style={{marginRight: 10}}>Sing In</button>
-          <button className="btn gray lighten-1 black-text">Auth</button>
+          <button 
+          className="btn yellow darken-4" 
+          style={{marginRight: 10}}
+          disabled={loading}
+          >
+            Sing In
+          </button>
+          <button 
+            className="btn gray lighten-1 black-text"
+            onClick={registerHandler}
+            disabled={loading}
+            >
+            Auth
+          </button>
         </div>
       </div>
       </div>
