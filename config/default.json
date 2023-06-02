@@ -1,4 +1,5 @@
 {
     "port": 5000,
-    "mongoUri": "mongodb+srv://maxduma16:0RfojMwUNVAliOtJ@cluster0.isnyoza.mongodb.net/app?retryWrites=true&w=majority"
+    "mongoUri": "mongodb+srv://maxduma16:0RfojMwUNVAliOtJ@cluster0.isnyoza.mongodb.net/app?retryWrites=true&w=majority",
+    "jwtSecret": "max mern"
 }
