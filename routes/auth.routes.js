@@ -1,8 +1,10 @@
 const {Router} = require('express')
 const bcrypt = require('bcryptjs')
 const {check, validationResult } = require('express-validator')
+const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 const router = Router()
+const config = require('config')
 
 // /api/auth/register
 router.post(
@@ -74,6 +76,14 @@ router.post(
     if (!isMatch) {
       return res.status(400).json({message: 'User not found'})
     }
+
+    const token = jst.sign(
+      { userId: user.id },
+      config.get('jwtSecret'),
+      {expiresIn: '1h'}
+    )
+
+    res.json({token, userId: user.id})
 
   } catch (e) {
     console.error(e);
