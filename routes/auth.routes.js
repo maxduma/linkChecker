@@ -77,7 +77,7 @@ router.post(
       return res.status(400).json({message: 'User not found'})
     }
 
-    const token = jst.sign(
+    const token = jwt.sign(
       { userId: user.id },
       config.get('jwtSecret'),
       {expiresIn: '1h'}
