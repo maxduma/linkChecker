@@ -25,6 +25,7 @@ export const DetailPage = () => {
   }, [getLink])
 
   if (loading) {
+    console.log("WORK!!!!!!!!!!!!")
     return <Loader />
   }
 
